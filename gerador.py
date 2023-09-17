@@ -20,6 +20,10 @@ idade {self.idade}, formação: {self.formacao}, N# de linguas: \
 {self.linguas_programacao}, certificados: {self.certificados}, \
 N# de empregos prévios: {self.empregos})'
 
+    def row(self):
+        return [self.nome, self.estado, self.idade, self.formacao,
+                self.linguas_programacao, self.certificados, self.empregos]
+
 
 nomes = []
 with open('nomes.txt') as file:
@@ -49,14 +53,14 @@ formacoes = [
         ]
 
 candidatos = []
-for i in nomes:
+for nome in nomes:
     estado = estados[random.randint(0, len(estados)-1)]
     idade = random.randint(17, 45)
     formacao = formacoes[random.randint(0, len(formacoes)-1)]
     linguagens_programacao = random.randint(2, 12)
     certificados = random.randint(0, 6)
     empregos = random.randint(0, 10)
-    candidatos.append(candidato(i,
+    candidatos.append(candidato(nome,
                                 estado,
                                 idade,
                                 formacao,
@@ -65,5 +69,11 @@ for i in nomes:
                                 empregos,
                                 ))
 
-print(candidatos)
-print(len(candidatos))
+with open('dataset.csv', 'w', newline='') as csvfile:
+    spamwriter = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    rows = ['nome', 'estado', 'idade', 'formacao', 'linguas_programacao',
+            'certificados', 'empregos']
+    spamwriter.writerow(rows)
+    for candidato in candidatos:
+        spamwriter.writerow(candidato.row())
