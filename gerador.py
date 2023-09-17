@@ -77,3 +77,5 @@ with open('dataset.csv', 'w', newline='') as csvfile:
     spamwriter.writerow(rows)
     for candidato in candidatos:
         spamwriter.writerow(candidato.row())
+
+print('dataset.csv')
