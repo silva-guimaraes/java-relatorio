@@ -17,7 +17,17 @@ class Candidato {
     Candidato(String nome, String estado, int idade, String formacao, 
             int linguasProgramacao, int certificados, int numEmpregosPrevios) 
     {
-        System.out.println("não implementado!");
+        this.nome = nome;
+        this.estado = estado;
+        this.idade = idade;
+        this.formacao = formacao;
+        this.linguasProgramacao = linguasProgramacao;
+        this.certificados = certificados;
+        this.numEmpregosPrevios = numEmpregosPrevios;
+    }
+
+    public String toString() {
+        return "nome: " + this.nome + ", idade: " + this.idade + ", estado: " + this.estado + ", formacao: " + this.formacao;
     }
 }
 
@@ -47,9 +57,28 @@ class relatorio {
             e.printStackTrace();
         }
 
-        // debug: exibir todas as linhas
+        List<Candidato> candidatos = new ArrayList<Candidato>();
+
         for (String linha : linhas) {
-            System.out.println(linha);
+            String[] colunas = linha.split(",");
+            // nome,estado,idade,formacao,linguas_programacao,certificados,empregos
+            String nome = colunas[0];
+            String estado = colunas[1];
+            int idade = Integer.parseInt(colunas[2]);
+            String formacao = colunas[3];
+            int linguasProgramacao = Integer.parseInt(colunas[4]);
+            int certificados = Integer.parseInt(colunas[5]);
+            int numEmpregosPrevios = Integer.parseInt(colunas[6]);
+
+            Candidato candidato = new Candidato(
+                    nome, estado, idade, formacao, linguasProgramacao, certificados, 
+                    numEmpregosPrevios);
+
+            candidatos.add(candidato);
         }
+
+        for (var i : candidatos) 
+            System.out.println(i);
+
     }
 }
