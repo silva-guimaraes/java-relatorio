@@ -1,5 +1,7 @@
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -38,28 +40,28 @@ class relatorio {
         // ler arquivo dataset por linhas
         List<String> linhas = new ArrayList<String>();
         try {
-            File arquivo = new File("dataset.csv");
-            Scanner myReader = new Scanner(arquivo);
+            File file = new File("dataset.csv");
+            FileReader filereader = new FileReader(file);
+            BufferedReader br = new BufferedReader(filereader);
+            String line;
 
-            // descartar primeira linha que apenas contem os nomes de cada coluna
-            myReader.nextLine();
-
-            while (myReader.hasNextLine())
-            {
-                // ler todas as linhas e adiocionar a lista
-                String linha = myReader.nextLine();
-                linhas.add(linha);
+            while ((line = br.readLine()) != null) {
+                linhas.add(line);
+                System.out.println(line);
             }
-            myReader.close();
 
-        } catch (FileNotFoundException e) {
+
+        } catch (Exception e) {
             System.out.println("erro! arquivo não encontrado");
             e.printStackTrace();
         }
 
+        System.out.println(linhas.size());
+
         List<Candidato> candidatos = new ArrayList<Candidato>();
 
-        for (String linha : linhas) {
+        for (int i = 1; i < linhas.size(); i++) {
+            String linha = linhas.get(i);
             String[] colunas = linha.split(",");
             // nome,estado,idade,formacao,linguas_programacao,certificados,empregos
             String nome = colunas[0];
