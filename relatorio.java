@@ -31,32 +31,32 @@ class Candidato {
     public String toString() {
         return "nome: " + this.nome + ", idade: " + this.idade + ", estado: " + this.estado + ", formacao: " + this.formacao;
     }
-}
 
-class relatorio {
-    
-    public static boolean sudeste(Candidato candidato)  {
-        String estado = candidato.estado;
-        if(estado.equals("Rio de Janeiro")){
-        return true;
+    public boolean sudeste()  {
+        if(this.estado.equals("Rio de Janeiro")) {
+            return true;
         }
-        else if(estado.equals("São Paulo")){
-        return true;    
+        else if (this.estado.equals("São Paulo")) {
+            return true;    
         }  
-        else if(estado.equals("Minas Gerais")){
-        return true;    
+        else if (this.estado.equals("Minas Gerais")) {
+            return true;    
         }
-        else if(estado.equals("Espírito Santo")){
-        return true;    
+        else if(this.estado.equals("Espírito Santo")){
+            return true;    
         }
         else{
-        return false;    
+            return false;    
         }
     }
 
+}
+
+class relatorio {
+
     public static void main(String[] args) {
 
-        // ler arquivo dataset por linhas
+        // ler arquivo dataset.csv por linhas
         List<String> linhas = new ArrayList<String>();
         try {
             File file = new File("dataset.csv");
@@ -76,10 +76,16 @@ class relatorio {
 
         List<Candidato> candidatos = new ArrayList<Candidato>();
 
-        for (int i = 1; i < linhas.size(); i++) {
+        // separar cada linha por colunas e salvar todos os candidatos em uma lista
+        for (int i = 1; i < linhas.size(); i++)
+        {
             String linha = linhas.get(i);
             String[] colunas = linha.split(",");
+
+            // o layout das colunas é este:
             // nome,estado,idade,formacao,linguas_programacao,certificados,empregos
+            // dentre estas, apenas "nome", "estado" e "formacao" deverão continuar
+            // sendo strings
             String nome = colunas[0];
             String estado = colunas[1];
             int idade = Integer.parseInt(colunas[2]);
@@ -92,29 +98,36 @@ class relatorio {
                     nome, estado, idade, formacao, linguasProgramacao, certificados, 
                     numEmpregosPrevios);
 
+            // salvar candidato
             candidatos.add(candidato);
         }
-        
-        System.out.println(candidatos.size());
+
         /* Filtragem de Dados */
-        for (int contador = 0; contador < candidatos.size(); contador++) {
-            if (candidatos.get(contador).idade > 27) {
+        for (int contador = 0; contador < candidatos.size(); contador++)
+        {
+            Candidato candidato = candidatos.get(contador);
+            if (candidato.idade > 27)
+            {
                 candidatos.remove(contador);
                 contador--;
-            } else if (!candidatos.get(contador).formacao.equals("ensino superior")) {
+            } 
+            else if (!candidato.formacao.equals("ensino superior"))
+            {
                 candidatos.remove(contador);
                 contador--;
-            } else if (!sudeste(candidatos.get(contador))) {
+            }
+            else if (!candidato.sudeste())
+            {
                 candidatos.remove(contador);
                 contador--;
             }
         }
 
-        System.out.println("A quantidade de candidatos são" + " " + candidatos.size() + ",");
+        System.out.println("A quantidade de candidatos são " + candidatos.size() + ",");
+        System.out.println("Os candidatos que se adequam seguem:");
         for (var i : candidatos) {
-            System.out.println("Os candidatos que se adequam seguem:");
             System.out.println(i);
         }
     }
 }
-  
+
