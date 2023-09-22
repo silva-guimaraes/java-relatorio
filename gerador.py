@@ -54,20 +54,19 @@ formacoes = [
 
 candidatos = []
 for nome in nomes:
+
     estado = estados[random.randint(0, len(estados)-1)]
     idade = random.randint(17, 45)
     formacao = formacoes[random.randint(0, len(formacoes)-1)]
     linguagens_programacao = random.randint(2, 12)
     certificados = random.randint(0, 6)
     empregos = random.randint(0, 10)
-    candidatos.append(candidato(nome,
-                                estado,
-                                idade,
-                                formacao,
-                                linguagens_programacao,
-                                certificados,
-                                empregos,
-                                ))
+
+    candidatos.append(candidato(
+        nome, estado, idade, formacao,
+        linguagens_programacao, certificados,
+        empregos,
+        ))
 
 with open('dataset.csv', 'w', newline='') as csvfile:
     spamwriter = csv.writer(csvfile, delimiter=',',
