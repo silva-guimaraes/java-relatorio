@@ -1,26 +1,52 @@
-Acre
 Alagoas
 Amapá
 Amazonas
 Bahia
+Bahia
+Bahia
 Ceará
 Espírito Santo
+Espírito Santo
+Espírito Santo
+Goiás
 Goiás
 Maranhão
 Mato Grosso
 Mato Grosso do Sul
+Mato Grosso do Sul
+Minas Gerais
+Minas Gerais
+Minas Gerais
+Minas Gerais
+Minas Gerais
+Minas Gerais
 Minas Gerais
 Pará
-Paraíba
 Paraná
 Pernambuco
-Piauí
+Rio de Janeiro
+Rio de Janeiro
+Rio de Janeiro
+Rio de Janeiro
+Rio de Janeiro
+Rio de Janeiro
+Rio de Janeiro
 Rio de Janeiro
 Rio Grande do Norte
 Rio Grande do Sul
-Rondônia
-Roraima
 Santa Catarina
+Santa Catarina
+Santa Catarina
+São Paulo
+São Paulo
+São Paulo
+São Paulo
+São Paulo
+São Paulo
+São Paulo
+São Paulo
+São Paulo
+São Paulo
 São Paulo
 Sergipe
 Tocantins
