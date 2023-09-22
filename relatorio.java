@@ -34,6 +34,25 @@ class Candidato {
 }
 
 class relatorio {
+    
+    public static boolean sudeste(Candidato candidato)  {
+        String estado = candidato.estado;
+        if(estado.equals("Rio de Janeiro")){
+        return true;
+        }
+        else if(estado.equals("São Paulo")){
+        return true;    
+        }  
+        else if(estado.equals("Minas Gerais")){
+        return true;    
+        }
+        else if(estado.equals("Espírito Santo")){
+        return true;    
+        }
+        else{
+        return false;    
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -47,7 +66,6 @@ class relatorio {
 
             while ((line = br.readLine()) != null) {
                 linhas.add(line);
-                System.out.println(line);
             }
 
 
@@ -55,8 +73,6 @@ class relatorio {
             System.out.println("erro! arquivo não encontrado");
             e.printStackTrace();
         }
-
-        System.out.println(linhas.size());
 
         List<Candidato> candidatos = new ArrayList<Candidato>();
 
@@ -78,9 +94,27 @@ class relatorio {
 
             candidatos.add(candidato);
         }
+        
+        System.out.println(candidatos.size());
+        /* Filtragem de Dados */
+        for (int contador = 0; contador < candidatos.size(); contador++) {
+            if (candidatos.get(contador).idade > 27) {
+                candidatos.remove(contador);
+                contador--;
+            } else if (!candidatos.get(contador).formacao.equals("ensino superior")) {
+                candidatos.remove(contador);
+                contador--;
+            } else if (!sudeste(candidatos.get(contador))) {
+                candidatos.remove(contador);
+                contador--;
+            }
+        }
 
-        for (var i : candidatos) 
+        System.out.println("A quantidade de candidatos são" + " " + candidatos.size() + ",");
+        for (var i : candidatos) {
+            System.out.println("Os candidatos que se adequam seguem:");
             System.out.println(i);
-
+        }
     }
 }
+  
