@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+// candidato a vaga de emprego
 class Candidato {
     public int id;
     public String nome;
@@ -31,8 +32,8 @@ class Candidato {
     }
 
     public String toString() {
-        return "(id: " + this.id + ") " + "nome: " + this.nome + ", idade: " + 
-            this.idade + ", estado: " + this.estado + ", formacao: " + this.formacao;
+        return "(id:" + this.id + ")\t" + this.nome + ",\t\t" + this.idade + " anos," 
+            + this.estado + ",\t" + this.formacao;
     }
 
     public boolean sudeste()  {
@@ -53,14 +54,14 @@ class Candidato {
         }
     }
 
-    // retorna true se o cadidato possuir ensino superior concluido ou 
+    // retorna true se o cadidato possuir ensino superior concluído ou 
     // um curso profissionalizante. candidatos com mestrado ou doutorado são
     // qualificados demais para essa empresa
     public boolean qualificado()  {
         if(this.formacao.equals("ensino superior")) {
             return true;
         }
-        if(this.formacao.equals("curso profissionalizante")) {
+        else if(this.formacao.equals("curso profissionalizante")) {
             return true;
         }
         else{
@@ -133,13 +134,13 @@ class relatorio {
                 candidatos.remove(contador);
                 contador--;
             } 
-            // remover candidatos fora da região sudeste
+            // remover candidatos fora da região do sudeste
             else if (!candidato.sudeste())
             {
                 candidatos.remove(contador);
                 contador--;
             }
-            // remover candidatos que não tenham as qualificações corretas
+            // remover candidatos que não tenham qualificações corretas
             else if (!candidato.qualificado())
             {
                 candidatos.remove(contador);
@@ -147,9 +148,10 @@ class relatorio {
             }
         }
 
+        // resultado
         System.out.println("A quantidade de candidatos são " + candidatos.size() + ",");
         System.out.println("Os candidatos que se adequam seguem:");
-        for (var i : candidatos) {
+        for (Candidato i : candidatos) {
             System.out.println(i);
         }
     }
