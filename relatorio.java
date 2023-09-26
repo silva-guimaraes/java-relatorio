@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Candidato {
+    public int id;
     public String nome;
     public String estado;
     public int idade;
@@ -16,9 +17,10 @@ class Candidato {
     public int certificados;
     public int numEmpregosPrevios;
 
-    Candidato(String nome, String estado, int idade, String formacao, 
+    Candidato(int id, String nome, String estado, int idade, String formacao, 
             int linguasProgramacao, int certificados, int numEmpregosPrevios) 
     {
+        this.id = id;
         this.nome = nome;
         this.estado = estado;
         this.idade = idade;
@@ -29,7 +31,8 @@ class Candidato {
     }
 
     public String toString() {
-        return "nome: " + this.nome + ", idade: " + this.idade + ", estado: " + this.estado + ", formacao: " + this.formacao;
+        return "(id: " + this.id + ") " + "nome: " + this.nome + ", idade: " + 
+            this.idade + ", estado: " + this.estado + ", formacao: " + this.formacao;
     }
 
     public boolean sudeste()  {
@@ -50,13 +53,28 @@ class Candidato {
         }
     }
 
+    // retorna true se o cadidato possuir ensino superior concluido ou 
+    // um curso profissionalizante. candidatos com mestrado ou doutorado são
+    // qualificados demais para essa empresa
+    public boolean qualificado()  {
+        if(this.formacao.equals("ensino superior")) {
+            return true;
+        }
+        if(this.formacao.equals("curso profissionalizante")) {
+            return true;
+        }
+        else{
+            return false;    
+        }
+    }
+
 }
 
 class relatorio {
 
     public static void main(String[] args) {
 
-        // ler arquivo dataset.csv por linhas
+        // ler arquivo dataset.csv por linhas e salvar nesta array
         List<String> linhas = new ArrayList<String>();
         try {
             File file = new File("dataset.csv");
@@ -80,22 +98,25 @@ class relatorio {
         for (int i = 1; i < linhas.size(); i++)
         {
             String linha = linhas.get(i);
+            // separa linha pelas virgulas
             String[] colunas = linha.split(",");
 
             // o layout das colunas é este:
-            // nome,estado,idade,formacao,linguas_programacao,certificados,empregos
+            // id,nome,estado,idade,formacao,linguas_programacao,certificados,empregos
             // dentre estas, apenas "nome", "estado" e "formacao" deverão continuar
-            // sendo strings
-            String nome = colunas[0];
-            String estado = colunas[1];
-            int idade = Integer.parseInt(colunas[2]);
-            String formacao = colunas[3];
-            int linguasProgramacao = Integer.parseInt(colunas[4]);
-            int certificados = Integer.parseInt(colunas[5]);
-            int numEmpregosPrevios = Integer.parseInt(colunas[6]);
+            // sendo strings. todas as outras precisam ser transformadas em int
+            int id = Integer.parseInt(colunas[0]);
+            String nome = colunas[1];
+            String estado = colunas[2];
+            int idade = Integer.parseInt(colunas[3]);
+            String formacao = colunas[4];
+            int linguasProgramacao = Integer.parseInt(colunas[5]);
+            int certificados = Integer.parseInt(colunas[6]);
+            int numEmpregosPrevios = Integer.parseInt(colunas[7]);
 
+            // criar objeto candidato
             Candidato candidato = new Candidato(
-                    nome, estado, idade, formacao, linguasProgramacao, certificados, 
+                    id, nome, estado, idade, formacao, linguasProgramacao, certificados, 
                     numEmpregosPrevios);
 
             // salvar candidato
@@ -106,17 +127,20 @@ class relatorio {
         for (int contador = 0; contador < candidatos.size(); contador++)
         {
             Candidato candidato = candidatos.get(contador);
+            // remover candidatos não muito jovens
             if (candidato.idade > 27)
             {
                 candidatos.remove(contador);
                 contador--;
             } 
-            else if (!candidato.formacao.equals("ensino superior"))
+            // remover candidatos fora da região sudeste
+            else if (!candidato.sudeste())
             {
                 candidatos.remove(contador);
                 contador--;
             }
-            else if (!candidato.sudeste())
+            // remover candidatos que não tenham as qualificações corretas
+            else if (!candidato.qualificado())
             {
                 candidatos.remove(contador);
                 contador--;

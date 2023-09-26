@@ -20,8 +20,8 @@ idade {self.idade}, formação: {self.formacao}, N# de linguas: \
 {self.linguas_programacao}, certificados: {self.certificados}, \
 N# de empregos prévios: {self.empregos})'
 
-    def row(self):
-        return [self.nome, self.estado, self.idade, self.formacao,
+    def row(self, id):
+        return [id, self.nome, self.estado, self.idade, self.formacao,
                 self.linguas_programacao, self.certificados, self.empregos]
 
 
@@ -71,10 +71,10 @@ for nome in nomes:
 with open('dataset.csv', 'w', newline='') as csvfile:
     spamwriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    rows = ['nome', 'estado', 'idade', 'formacao', 'linguas_programacao',
+    rows = ['id', 'nome', 'estado', 'idade', 'formacao', 'linguas_programacao',
             'certificados', 'empregos']
     spamwriter.writerow(rows)
-    for candidato in candidatos:
-        spamwriter.writerow(candidato.row())
+    for i, candidato in enumerate(candidatos):
+        spamwriter.writerow(candidato.row(i+1))
 
 print('dataset.csv')
