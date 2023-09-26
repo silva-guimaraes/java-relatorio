@@ -25,9 +25,13 @@ N# de empregos prévios: {self.empregos})'
                 self.linguas_programacao, self.certificados, self.empregos]
 
 
-nomes = []
+prenomes = []
 with open('nomes.txt') as file:
-    nomes = [line.rstrip() for line in file]
+    prenomes = [line.rstrip() for line in file]
+
+sobrenomes = []
+with open('sobrenomes.txt') as file:
+    sobrenomes = [line.rstrip() for line in file]
 
 estados = []
 with open('estados.txt') as file:
@@ -51,6 +55,14 @@ formacoes = [
         'doutorado',
         'mestrado',
         ]
+
+nomes = []
+for i in range(200):
+    prenome = prenomes[random.randint(0, len(prenomes)-1)]
+    sobrenome = sobrenomes[random.randint(0, len(sobrenomes)-1)]
+
+    nomes.append(prenome + ' ' + sobrenome)
+
 
 candidatos = []
 for nome in nomes:
